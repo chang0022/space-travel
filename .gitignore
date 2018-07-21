@@ -62,7 +62,7 @@ obj/
 /out/
 
 # User-specific configurations\
-.idea
+.idea/
 
 # OS-specific files
 .DS_Store
@@ -117,6 +117,8 @@ fabric.properties
 .dart_tool/
 .packages
 .pub/
+.metadata
+local.properties
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
