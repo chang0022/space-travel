@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../detail/DetailPage.dart';
 import '../../model/planets.dart';
 
 class PlanetRow extends StatelessWidget {
@@ -9,12 +10,17 @@ class PlanetRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final planetThumbnail = new Container(
-      margin: new EdgeInsets.symmetric(vertical: 16.0),
+      margin: new EdgeInsets.symmetric(
+        vertical: 16.0,
+      ),
       alignment: FractionalOffset.centerLeft,
-      child: new Image(
-        image: new AssetImage(planet.image),
-        height: 92.0,
-        width: 92.0,
+      child: new Hero(
+        tag: 'planet-hero-${planet.id}',
+        child: new Image(
+          image: new AssetImage(planet.image),
+          height: 92.0,
+          width: 92.0,
+        ),
       ),
     );
 
@@ -54,20 +60,17 @@ class PlanetRow extends StatelessWidget {
               margin: new EdgeInsets.symmetric(vertical: 8.0),
               height: 2.0,
               width: 18.0,
-              color: new Color(0xff00c6ff)
-          ),
+              color: new Color(0xff00c6ff)),
           new Row(
             children: <Widget>[
               new Expanded(
                   child: _planetValue(
                       value: planet.distance,
-                      image: 'assets/img/ic_distance.png')
-              ),
+                      image: 'assets/img/ic_distance.png')),
               new Expanded(
                   child: _planetValue(
                       value: planet.gravity,
-                      image: 'assets/img/ic_gravity.png')
-              )
+                      image: 'assets/img/ic_gravity.png'))
             ],
           ),
         ],
@@ -90,10 +93,22 @@ class PlanetRow extends StatelessWidget {
           ]),
     );
 
-    return new Container(
-      margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-      child: new Stack(
-        children: <Widget>[planetCard, planetThumbnail],
+    return new GestureDetector(
+      onTap: () => Navigator.of(context).push(new PageRouteBuilder(
+            pageBuilder: (_, __, ___) => new DetailPage(planet),
+          )),
+      child: new Container(
+        height: 120.0,
+        margin: const EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: 24.0,
+        ),
+        child: new Stack(
+          children: <Widget>[
+            planetCard,
+            planetThumbnail,
+          ],
+        ),
       ),
     );
   }
